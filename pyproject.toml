@@ -20,12 +20,8 @@ good-names-rgxs = ["test_.*"]
 max-line-length=120
 max-branches=15
 
-[tool.pdm]
 [tool.pdm.build]
 includes = ["bundler_spec_tests"]
-[build-system]
-requires = ["pdm-pep517>=1.0.0"]
-build-backend = "pdm.pep517.api"
 
 [tool.pdm.scripts]
 update-deps = {shell = "git submodule update --init --recursive && cd @account-abstraction && yarn && yarn compile &&  cd ../spec && yarn && yarn build && cd ../@rip7560 && yarn && yarn compile-hardhat"}
@@ -35,6 +31,10 @@ test-rip7560 = "pytest --tb=short -rA -W ignore::DeprecationWarning --url http:/
 p2ptest = "pytest --tb=short -rA -W ignore::DeprecationWarning --url http://localhost:3000/rpc --entry-point 0x0000000071727De22E5E9d8BAf0edAc6f37da032 --ethereum-node http://127.0.0.1:8545/ tests/p2p"
 lint = "pylint tests"
 format = "black tests"
+
+[build-system]
+requires = ["pdm-pep517>=1.0.0"]
+build-backend = "pdm.pep517.api"
 
 [project]
 name = "bundler-spec-tests"
@@ -60,3 +60,7 @@ requires-python = ">=3.9,<3.11"
 license = {text = "MIT"}
 readme = "README.md"
 
+[dependency-groups]
+dev = [
+    "pytest-repeat>=0.9.4",
+]

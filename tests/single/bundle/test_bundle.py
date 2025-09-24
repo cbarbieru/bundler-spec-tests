@@ -264,6 +264,7 @@ def test_max_allowed_ops_unstaked_sender(w3, helper_contract):
     assert response.result["userOpHash"] == ophash
 
 
+@pytest.mark.repeat(3)
 @pytest.mark.usefixtures("manual_bundling_mode")
 def test_max_allowed_ops_staked_sender(w3, entrypoint_contract, helper_contract):
     wallet = deploy_and_deposit(w3, entrypoint_contract, "SimpleWallet", True)
